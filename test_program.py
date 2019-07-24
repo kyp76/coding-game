@@ -28,10 +28,13 @@ def test_grid_has_getter_and_return_tuple():
 
 def test_gird_has_setter_and_modify_value():
     gird = Gird(4, 6)
-    gird.set(3, 5)
+    new_gird = [(0,0),(1,1)]
+    new_direction = 'L'
+    gird.set(3, 5, new_gird, new_direction)
     assert gird.bat_x == 3
     assert gird.bat_y == 5
-
+    assert gird.white_grid == new_gird
+    assert gird.dir == 'L'
 
 def test_grid_return_expected_white_gird_if_direction_is_up():
     gird = Gird(width=4, height=4, bat_x=3, bat_y=2, direction="U")
@@ -96,6 +99,7 @@ def test_grid_return_expected_white_gird_if_direction_is_right():
 def test_batman_take_a_gird():
     gird = Gird(width=4, height=4, bat_x=3, bat_y=2, direction="R")
     white_gird = gird.generate_white_gird()
+    print(white_gird)
     bat = Batman(white_gird)
     assert bat.correct_gird == [
         (2, 0),
@@ -108,6 +112,22 @@ def test_batman_take_a_gird():
         (3, 3),
     ]
 
+
+
+def test_grid_return_expected_white_gird_if_direction_is_up_and_right():
+    gird = Gird(width=4, height=4, bat_x=3, bat_y=2, direction="UR")
+    white_gird = gird.generate_white_gird()
+    correct_values = [
+        (2, 2),
+        (2, 3),
+        (3, 2),
+        (3, 3),
+    ]
+    #for el in correct_values:
+    bat= Batman(white_gird)
+    bat.random_nb = 1
+    value = bat.jump()
+    assert (2,3) ==  value
 
 def test_if_jump_return_is_present_on_white_gird():
     gird = Gird(width=4, height=4, bat_x=3, bat_y=2, direction="R")
@@ -123,3 +143,6 @@ def test_if_jump_return_is_expected_value_on_white_gird():
     bat.random_nb = 2
     value = bat.jump()
     assert (3, 0) == bat.jump_place[2]
+
+
+
