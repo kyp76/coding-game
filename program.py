@@ -9,9 +9,9 @@ w = 4
 h = 4
 
 
-class Gird:
+class Batman:
     """
-    define Grid
+    define Batman
     """
 
     def __init__(self, width=4, height=4, direction="U", bat_x=2, bat_y=2):
@@ -21,16 +21,16 @@ class Gird:
         self.bat_x = bat_x
         self.bat_y = bat_y
         self.white_grid = []
-        self.tmp_gird = []
+        self.generate_white_gird()
 
     def get(self):
-        return self.width, self.height, self.bat_x, self.bat_y
+        return list((self.white_grid))
 
-    def set(self, bat_x, bat_y, new_gird, new_direction):
-        self.bat_x = bat_x
-        self.bat_y = bat_y
-        self.white_grid = new_gird
+    def set(self, new_direction, new_gird, new_bat_x, new_bat_y):
         self.dir = new_direction
+        self.white_grid = new_gird
+        self.bat_x = new_bat_x
+        self.bat_y = new_bat_y
 
     def generate_white_gird(self):
         if len(self.dir) == 1:
@@ -40,12 +40,11 @@ class Gird:
             tmp = {}
             for index, el in enumerate(self.dir):
                 tmp_list= []
-                print(el)
-                print(index)
                 tmp[index] = set(self.engine(el,tmp_list))
+                print(tmp)
             self.white_grid = tmp[0].intersection(tmp[1])
             print(self.white_grid)
-            return list(self.white_grid)
+            return self.white_grid
 
     def engine(self, engine_dir, engine_list):
         if engine_dir == "U":
@@ -68,15 +67,10 @@ class Gird:
 
         return engine_list
 
-
-class Batman:
-    inital_gird = []
-
-    def __init__(self, correct_gird=[]):
-        self.correct_gird = correct_gird
-        self.jump_place = list(set(self.correct_gird) - set(self.inital_gird))
-        self.random_nb = len(self.jump_place)//2
-
     def jump(self):
-        self.jump = self.jump_place[self.random_nb]
-        return self.jump
+        index = (len(self.white_grid)//2) - 1
+        print(index)
+        print(self.white_grid)
+        jump = list(self.white_grid)[index]
+        print(jump)
+        return jump
