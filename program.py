@@ -28,7 +28,9 @@ class Batman:
 
     def set(self, new_direction, new_gird, new_bat_x, new_bat_y):
         self.dir = new_direction
+        print("print white_gird is Bat {} before".format(self.white_grid))
         self.white_grid = new_gird
+        print("print white_gird is Bat {} after ".format(self.white_grid))
         self.bat_x = new_bat_x
         self.bat_y = new_bat_y
 
@@ -41,10 +43,15 @@ class Batman:
             for index, el in enumerate(self.dir):
                 tmp_list= []
                 tmp[index] = set(self.engine(el,tmp_list))
-                print(tmp)
             self.white_grid = tmp[0].intersection(tmp[1])
-            print(self.white_grid)
             return self.white_grid
+
+    def create_map(self, start_x, end_x, start_y, end_y):
+        map = []
+        for a in range(start_x, end_x):
+            for b in range(start_y, end_y):
+                map.append((a,b))
+        return map
 
     def engine(self, engine_dir, engine_list):
         if engine_dir == "U":
@@ -69,8 +76,5 @@ class Batman:
 
     def jump(self):
         index = (len(self.white_grid)//2) - 1
-        print(index)
-        print(self.white_grid)
         jump = list(self.white_grid)[index]
-        print(jump)
         return jump
