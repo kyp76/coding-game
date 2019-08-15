@@ -87,44 +87,30 @@ def test_grid_return_expected_white_bat_if_direction_is_left():
         (1, 1),
         (1, 2),
         (1, 3),
+        (2, 0),
+        (2, 1),
+        (2, 2),
+        (2, 3)
     ]
 
 
 def test_grid_return_expected_white_bat_if_direction_is_right():
     bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="R")
     white_gird = bat.get()
-    assert white_gird == [
-        (2, 0),
-        (2, 1),
-        (2, 2),
-        (2, 3),
-        (3, 0),
-        (3, 1),
-        (3, 2),
-        (3, 3),
-    ]
+    assert white_gird == [(3, 0), (3, 1), (3, 2), (3, 3)]
 
 
 def test_batman_take_a_gird():
     bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="R")
     white_gird = bat.get()
-    bat.set(new_gird=white_gird, new_direction="R", new_bat_x=4, new_bat_y=4)
-    assert bat.white_grid == [
-        (2, 0),
-        (2, 1),
-        (2, 2),
-        (2, 3),
-        (3, 0),
-        (3, 1),
-        (3, 2),
-        (3, 3),
-    ]
+    bat.set(new_gird=white_gird, new_direction="D", new_bat_x=4, new_bat_y=4)
+    assert bat.white_grid == [(3, 0), (3, 2), (3, 1), (3, 3)]
 
 
 def test_grid_return_expected_white_bat_if_direction_is_up_and_right():
     bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="UR")
     white_gird = bat.get()
-    correct_values = [(3, 2), (2, 3), (3, 3), (2, 2)]
+    correct_values = [(3, 2), (3, 3)]
     assert correct_values == white_gird
 
 
@@ -161,17 +147,20 @@ def test_bat_create_a_simple_map():
     assert expected_map == map
 
 
-# def test_bat_is_set_and_batman_jump_to_a_new_bat():
-#    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="UR")
-#    print(bat.white_grid)
-#    for el in range(2):
-#        print("el is : {}".format(el))
-#        new_gird = bat.get()
-#        print('new_grid is {}'.format(new_gird))
-#        value = bat.jump()
-#        print('value is {}'.format(value))
-#        bat.set(new_gird= new_gird, new_direction= "R", new_bat_x = 2,
-#                new_bat_y=3)
-#        bat.generate_white_gird()
-#    assert 0
-#
+def test_bat_is_set_and_batman_jump_to_a_new_bat():
+   bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="UR")
+   print(bat.white_grid)
+   for el in range(2):
+       print("el is : {}".format(el))
+       new_gird = bat.get()
+       print('new_grid is {}'.format(new_gird))
+       value = bat.jump()
+       print('value is {}'.format(value))
+       bat.set(new_gird= new_gird, new_direction= "R", new_bat_x = 2,
+               new_bat_y=3)
+       jump = bat.jump()
+       print(jump)
+       assert  bat.get() == [(3,2), (3,3)]
+
+
+
