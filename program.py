@@ -28,11 +28,11 @@ class Batman:
     def get(self):
         return list((self.white_grid))
 
-    def set(self, new_direction, new_gird, new_bat_x, new_bat_y):
+    def set(self, new_direction):
         self.dir = new_direction
-        self.white_grid = new_gird
-        self.bat_x = new_bat_x
-        self.bat_y = new_bat_y
+        #self.white_grid = new_gird
+        #self.bat_x = new_bat_x
+        #self.bat_y = new_bat_y
         tmp = {0: set(self.white_grid)}
         self.generate_white_gird()
         tmp[1] = set(self.white_grid)
@@ -52,8 +52,8 @@ class Batman:
                 tmp[index] = set(self.white_grid)
             self.white_grid = tmp[0].intersection(tmp[1])
 
-    #@staticmethod
-    def create_map(self, start_x, end_x, start_y, end_y):
+    @staticmethod
+    def create_map(start_x, end_x, start_y, end_y):
         map = []
         for a in range(start_x, end_x):
             for b in range(start_y, end_y):

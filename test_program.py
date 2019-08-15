@@ -38,10 +38,8 @@ def test_bat_has_setter_and_modify_value():
     bat = Batman(4, 6)
     new_gird = [(0, 0), (1, 1)]
     new_direction = "L"
-    bat.set(new_bat_x=3, new_bat_y=5, new_gird=new_gird, new_direction=new_direction)
-    assert bat.bat_x == 3
-    assert bat.bat_y == 5
-    assert bat.white_grid == new_gird
+    bat.set(new_direction=new_direction)
+    #assert bat.white_grid == new_gird
     assert bat.dir == "L"
 
 
@@ -103,7 +101,7 @@ def test_grid_return_expected_white_bat_if_direction_is_right():
 def test_batman_take_a_gird():
     bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="R")
     white_gird = bat.get()
-    bat.set(new_gird=white_gird, new_direction="D", new_bat_x=4, new_bat_y=4)
+    bat.set( new_direction="D")
     assert bat.white_grid == [(3, 0), (3, 2), (3, 1), (3, 3)]
 
 
@@ -124,8 +122,9 @@ def test_if_jump_return_is_present_on_white_bat():
 def test_bat_create_a_simple_map():
     width = 4
     height = 4
-    bat = Batman(width=width, height=height, bat_x=3, bat_y=2, direction="R")
-    map = bat.create_map(start_x=0, end_x=width, start_y=0, end_y=height)
+    #bat = Batman(width=width, height=height, bat_x=3, bat_y=2, direction="R")
+    map = Batman.create_map(start_x=0, end_x=width, start_y=0, end_y=height)
+    print(f' map is : {map}')
     expected_map = [
         (0, 0),
         (0, 1),
