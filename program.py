@@ -14,43 +14,42 @@ class Batman:
     define Batman
     """
 
-    def __init__(self, width=4, height=4, direction="U", bat_x=2, bat_y=2):
+    def __init__(self, width=4, height=4, bat_x=2, bat_y=2):
+        self.width = width
+    def __init__(self, width=4, height=4, bat_x=2, bat_y=2):
         self.width = width
         self.height = height
-        self.dir = direction
+        self.dir = ""
         self.bat_x = bat_x
         self.bat_y = bat_y
-        self.white_grid = []
+        self.map = []
         print(f'X bat is {self.bat_x}')
         print(f'Y bat is {self.bat_y}')
-        self.generate_white_gird()
+        self.generate_map()
 
     def get(self):
-        return list((self.white_grid))
+        return list((self.map))
 
     def set(self, new_direction):
         self.dir = new_direction
-        #self.white_grid = new_gird
-        #self.bat_x = new_bat_x
-        #self.bat_y = new_bat_y
-        tmp = {0: set(self.white_grid)}
-        self.generate_white_gird()
-        tmp[1] = set(self.white_grid)
+        tmp = {0: set(self.map)}
+        self.generate_map()
+        tmp[1] = set(self.map)
 
         print(f'tmp dict in set {tmp}')
-        self.white_grid = list(tmp[0].intersection(tmp[1]))
-        print(self.white_grid)
+        self.map = list(tmp[0].intersection(tmp[1]))
+        print(self.map)
 
 
-    def generate_white_gird(self):
-        if len(self.dir) == 1:
+    def generate_map(self):
+        if len(self.dir) == 1 or len(self.dir) == 0:
             self.engine(self.dir)
         else:
             tmp = {}
             for index, el in enumerate(self.dir):
                 self.engine(el)
-                tmp[index] = set(self.white_grid)
-            self.white_grid = tmp[0].intersection(tmp[1])
+                tmp[index] = set(self.map)
+            self.map = tmp[0].intersection(tmp[1])
 
     @staticmethod
     def create_map(start_x, end_x, start_y, end_y):
@@ -61,28 +60,24 @@ class Batman:
         return map
 
     def engine(self, engine_dir):
-        if engine_dir == "U":
+        if engine_dir =='':
+            self.map = self.create_map(0, self.width, 0 , self.height)
+        elif engine_dir == "U":
             print("it is U")
-            self.white_grid = self.create_map(0, self.width, self.bat_y, self.height)
+            self.map = self.create_map(0, self.width, self.bat_y, self.height)
         elif engine_dir == "D":
             print("it is D")
-            self.white_grid = self.create_map(0, self.width, 0, self.bat_y)
+            self.map = self.create_map(0, self.width, 0, self.bat_y)
         elif engine_dir == "L":
             print("it is L")
-            self.white_grid = self.create_map(0, self.bat_x , 0, self.height)
+            self.map = self.create_map(0, self.bat_x , 0, self.height)
         elif engine_dir == "R":
             print("it is R")
-            print(self.bat_x)
-            print(self.bat_y)
-            print(self.height)
-            print(self.width)
-            print(self.white_grid)
-            self.white_grid = self.create_map(
+            self.map = self.create_map(
                 self.bat_x , self.width, 0 , self.height
             )
-            print(self.white_grid)
 
     def jump(self):
-        index = (len(self.white_grid) // 2) - 1
-        jump = list(self.white_grid)[index]
+        index = (len(self.map) // 2) - 1
+        jump = list(self.map)[index]
         return jump

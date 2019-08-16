@@ -8,31 +8,20 @@ def test_batman_is_instance():
 
 
 def test_bat_taken_5_argument():
-    bat = Batman(width=6, height=5, bat_x=4, bat_y=3, direction="R")
+    bat = Batman(width=6, height=5, bat_x=4, bat_y=3)
     assert bat.width == 6
     assert bat.height == 5
     assert bat.bat_x == 4
     assert bat.bat_y == 3
-    assert bat.dir == "R"
+    assert bat.dir == ""
 
 
 def test_grid_has_getter_and_return_tuple():
     bat = Batman(width=4, height=5)
-    assert bat.get() == [
-        (0, 2),
-        (0, 3),
-        (0, 4),
-        (1, 2),
-        (1, 3),
-        (1, 4),
-        (2, 2),
-        (2, 3),
-        (2, 4),
-        (3, 2),
-        (3, 3),
-        (3, 4),
-    ]
-
+    correct_values = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1),
+                      (1, 2), (1, 3), (1, 4), (2, 0), (2, 1), (2, 2), (2, 3),
+                      (2, 4), (3, 0), (3, 1), (3, 2), (3, 3), (3, 4)]
+    assert bat.get() ==  correct_values
 
 def test_bat_has_setter_and_modify_value():
     bat = Batman(4, 6)
@@ -44,9 +33,10 @@ def test_bat_has_setter_and_modify_value():
 
 
 def test_bat_return_expected_white_bat_if_direction_is_up():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="U")
+    bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
+    bat.set("U")
     white_gird = bat.get()
-    assert white_gird == [
+    assert set(white_gird) == set([
         (0, 2),
         (0, 3),
         (1, 2),
@@ -55,13 +45,14 @@ def test_bat_return_expected_white_bat_if_direction_is_up():
         (2, 3),
         (3, 2),
         (3, 3),
-    ]
+    ])
 
 
 def test_bat_return_expected_white_bat_if_direction_is_down():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="D")
+    bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
+    bat.set('D')
     white_gird = bat.get()
-    assert white_gird == [
+    assert set(white_gird) == set([
         (0, 0),
         (0, 1),
         (1, 0),
@@ -70,13 +61,14 @@ def test_bat_return_expected_white_bat_if_direction_is_down():
         (2, 1),
         (3, 0),
         (3, 1),
-    ]
+    ])
 
 
 def test_grid_return_expected_white_bat_if_direction_is_left():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="L")
+    bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
+    bat.set('L')
     white_gird = bat.get()
-    assert white_gird == [
+    assert set(white_gird) == set([
         (0, 0),
         (0, 1),
         (0, 2),
@@ -89,31 +81,27 @@ def test_grid_return_expected_white_bat_if_direction_is_left():
         (2, 1),
         (2, 2),
         (2, 3)
-    ]
+    ])
 
 
 def test_grid_return_expected_white_bat_if_direction_is_right():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="R")
+    bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
+    bat.set('R')
     white_gird = bat.get()
-    assert white_gird == [(3, 0), (3, 1), (3, 2), (3, 3)]
+    assert set(white_gird) == set([(3, 0), (3, 1), (3, 2), (3, 3)])
 
-
-def test_batman_take_a_gird():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="R")
-    white_gird = bat.get()
-    bat.set( new_direction="D")
-    assert bat.white_grid == [(3, 0), (3, 2), (3, 1), (3, 3)]
 
 
 def test_grid_return_expected_white_bat_if_direction_is_up_and_right():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="UR")
+    bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
+    bat.set('UR')
     white_gird = bat.get()
     correct_values = [(3, 2), (3, 3)]
     assert correct_values == white_gird
 
 
 def test_if_jump_return_is_present_on_white_bat():
-    bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="R")
+    bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
     white_gird = bat.get()
     value = bat.jump()
     assert value in white_gird
@@ -122,9 +110,7 @@ def test_if_jump_return_is_present_on_white_bat():
 def test_bat_create_a_simple_map():
     width = 4
     height = 4
-    #bat = Batman(width=width, height=height, bat_x=3, bat_y=2, direction="R")
     map = Batman.create_map(start_x=0, end_x=width, start_y=0, end_y=height)
-    print(f' map is : {map}')
     expected_map = [
         (0, 0),
         (0, 1),
@@ -147,16 +133,14 @@ def test_bat_create_a_simple_map():
 
 
 def test_bat_is_set_and_batman_jump_to_a_new_bat():
-   bat = Batman(width=4, height=4, bat_x=3, bat_y=2, direction="UR")
-   print(bat.white_grid)
+   bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
+   bat.set("UR")
+   print(bat.map)
    for el in range(2):
        print("el is : {}".format(el))
-       new_gird = bat.get()
-       print('new_grid is {}'.format(new_gird))
        value = bat.jump()
        print('value is {}'.format(value))
-       bat.set(new_gird= new_gird, new_direction= "R", new_bat_x = 2,
-               new_bat_y=3)
+       bat.set(new_direction= "R")
        jump = bat.jump()
        print(jump)
        assert  bat.get() == [(3,2), (3,3)]
