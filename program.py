@@ -61,20 +61,20 @@ class Batman:
 
     def engine(self, engine_dir):
         if engine_dir =='':
-            self.map = self.create_map(0, self.width, 0 , self.height)
+            self.map = self.create_map(0, self.width , 0 , self.height )
         elif engine_dir == "U":
-            print("it is U")
-            self.map = self.create_map(0, self.width, self.bat_y, self.height)
+            #print("it is U")
+            self.map = self.create_map(0, self.width , 0, self.bat_y)
         elif engine_dir == "D":
-            print("it is D")
-            self.map = self.create_map(0, self.width, 0, self.bat_y)
+            #print("it is D")
+            self.map = self.create_map(0, self.width , self.bat_y, self.height)
         elif engine_dir == "L":
-            print("it is L")
+            #print("it is L")
             self.map = self.create_map(0, self.bat_x , 0, self.height)
         elif engine_dir == "R":
-            print("it is R")
+            #print("it is R")
             self.map = self.create_map(
-                self.bat_x , self.width, 0 , self.height
+                self.bat_x , self.width+ 1, 0 , self.height +1
             )
 
     def jump(self):
