@@ -129,7 +129,7 @@ def test_bat_is_set_and_batman_jump_to_a_new_bat():
        bat.set(new_direction= "R")
        jump = bat.jump()
        print(jump)
-       assert  bat.get() == [(3, 0), (3, 1)]
+       assert  bat.get() == []
 
 
 
