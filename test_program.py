@@ -37,14 +37,7 @@ def test_bat_return_expected_white_bat_if_direction_is_up():
     bat.set("U")
     white_gird = bat.get()
     assert set(white_gird) == set([
-        (0, 2),
-        (0, 3),
-        (1, 2),
-        (1, 3),
-        (2, 2),
-        (2, 3),
-        (3, 2),
-        (3, 3),
+        (0, 1),(0, 0), (3, 0),(3, 1),(2, 1), (2, 0),(1, 0), (1, 1)
     ])
 
 
@@ -53,14 +46,7 @@ def test_bat_return_expected_white_bat_if_direction_is_down():
     bat.set('D')
     white_gird = bat.get()
     assert set(white_gird) == set([
-        (0, 0),
-        (0, 1),
-        (1, 0),
-        (1, 1),
-        (2, 0),
-        (2, 1),
-        (3, 0),
-        (3, 1),
+        (1, 2),(3, 2),(1, 3),(3, 3), (2, 3),(2, 2),(0, 3),(0, 2)
     ])
 
 
@@ -96,7 +82,7 @@ def test_grid_return_expected_white_bat_if_direction_is_up_and_right():
     bat = Batman(width=4, height=4, bat_x=3, bat_y=2)
     bat.set('UR')
     white_gird = bat.get()
-    correct_values = [(3, 2), (3, 3)]
+    correct_values = [(3, 0), (3, 1)]
     assert correct_values == white_gird
 
 
@@ -143,7 +129,7 @@ def test_bat_is_set_and_batman_jump_to_a_new_bat():
        bat.set(new_direction= "R")
        jump = bat.jump()
        print(jump)
-       assert  bat.get() == [(3,2), (3,3)]
+       assert  bat.get() == [(3, 0), (3, 1)]
 
 
 
