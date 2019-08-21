@@ -27,6 +27,7 @@ class Batman:
         # print(f'X bat is {self.bat_x}')
         # print(f'Y bat is {self.bat_y}')
         self.generate_map()
+        import pdb
 
     def get(self):
         return list((self.map))
@@ -48,16 +49,31 @@ class Batman:
         # print(self.map)
 
     def generate_map(self):
-        if len(self.dir) == 1 or len(self.dir) == 0:
-            self.engine(self.dir)
-        else:
+        #if len(self.dir) == 1 or len(self.dir) == 0:
+        #    self.engine(self.dir)
+        #else:
+        #    tmp = {}
+        #    for index, el in enumerate(self.dir):
+        #        self.engine(el)
+        #        tmp[index] = set(self.map)
+        #    # print("Debug messages... tmp in generate map:",tmp,  file=sys.stderr)
+        #    self.map = tmp[0].intersection(tmp[1])
+        #    # print("Debug messages... Map in generate map:",self.map,  file=sys.stderr)
+        print("\\\\\\ {}".format(self.dir))
+        if len(self.dir) ==2:
             tmp = {}
+            print("//// {}".format(self.dir))
             for index, el in enumerate(self.dir):
+                print('#### {}'.format(el))
                 self.engine(el)
                 tmp[index] = set(self.map)
             # print("Debug messages... tmp in generate map:",tmp,  file=sys.stderr)
+            print("test du tmp {}".format(tmp))
             self.map = tmp[0].intersection(tmp[1])
             # print("Debug messages... Map in generate map:",self.map,  file=sys.stderr)
+        else:
+            print('je passe pas la ? ')
+            self.engine(self.dir)
 
     @staticmethod
     def create_map(start_x, end_x, start_y, end_y):
@@ -76,6 +92,9 @@ class Batman:
         elif engine_dir == "D":
             # print("it is D")
             self.map = self.create_map(0, self.width, self.bat_y + 1, self.height)
+            print(" map in dir D {}".format(self.map))
+            print(" bat_x in dir D {}".format(self.bat_x))
+            print(" bat_y in dir D {}".format(self.bat_y))
         elif engine_dir == "L":
             # print("it is L")
             self.map = self.create_map(0, self.bat_x + 1, 0, self.height)
