@@ -161,13 +161,10 @@ def test_bat_create_a_simple_map():
 def test_bat_is_set_and_batman_jump_to_a_new_bat():
     bat = Batman(width=4, height=8, bat_x=2, bat_y=3)
     # print(bat.map)
-    for el in range(2):
-        bat.set("DR")
-        print("1er map {}".format(bat.map))
-        value = bat.jump()
-        print("value1 is {}".format(value))
-        #bat.set("D")
-        #value = bat.jump()
-        #print("value2 is {}".format(value))
-        # print(jump)
-    assert 0
+    bat.set("DR")
+    print("1er map {}".format(bat.map))
+    value = bat.jump()
+    bat.set("D")
+    value = bat.jump()
+    print("value is {}".format(value))
+    assert value == (3, 7) 
